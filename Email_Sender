@@ -1,0 +1,23 @@
+import smtplib
+from email.message import EmailMessage
+
+def send_email(subject, body, recipient):
+    msg = EmailMessage()
+    msg['Subject'] = subject
+    msg.set_content(body)
+    msg['From'] = 'your_email@example.com'  # Replace with your email address
+    msg['To'] = recipient
+
+    try:
+        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+            smtp.starttls()
+            smtp.login('your_email@example.com', 'your_password')  # Replace with your email and password
+            smtp.send_message(msg)
+        print('Email sent successfully!')
+    except Exception as e:
+        print('Error occurred while sending email:', str(e))
+
+subject = input('Enter email subject: ')
+body = input('Enter email body: ')
+recipient = input('Enter recipient email address: ')
+send_email(subject, body, recipient)
